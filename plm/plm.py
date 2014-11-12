@@ -1,11 +1,15 @@
 #! /usr/bin/env python
- 
+
+import logging 
 import numpy as np
 from heapq import nlargest
 from itertools import izip
 from sklearn.feature_extraction.text import CountVectorizer
  
 old_settings = np.seterr(all='ignore') 
+
+logging.basicConfig(
+    format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
  
 def logsum(x):
     """Computes the sum of x assuming x is in the log domain.
@@ -66,6 +70,7 @@ class ParsimoniousLM(object):
         if labels is None:
             labels = range(len(texts))
         for label, text in izip(labels, texts):
+            logging.info("Fitting document %s..." % label)
             lm = self.lm(text, iterations, eps)
             self.fitted_.append((label, lm))
  
