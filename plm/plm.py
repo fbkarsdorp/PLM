@@ -70,13 +70,13 @@ class ParsimoniousLM(object):
         if labels is None:
             labels = range(len(texts))
         for label, text in izip(labels, texts):
-            logging.info("Fitting document %s..." % label)
+            logging.info("Fitting document %s (%s)..." % (label, len(labels)))
             lm = self.lm(text, iterations, eps)
             self.fitted_.append((label, lm))
  
     def fit_transform(self, texts, labels=None, iterations=50, eps=1e-5):
         self.fit(texts, labels, iterations, eps)
-        return self.fitted_
+        return np.array(zip(*self.fitted_)[1])
  
     def cross_entropy(self, qlm, rlm):
         return -np.sum(np.exp(qlm) * np.logaddexp(self.pc, rlm + self.weight))
