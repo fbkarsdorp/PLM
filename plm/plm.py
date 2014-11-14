@@ -33,7 +33,7 @@ def logsum(x):
     out += vmax
     return out
 
-class ParsimoniousLM(object):
+class ParsimoniousLM:
     def __init__(self, documents, weight, min_df=1, max_df=1.0):
         self.weight = np.log(weight)
         self.vectorizer = CountVectorizer(min_df=min_df, max_df=max_df, analyzer=lambda i: i)

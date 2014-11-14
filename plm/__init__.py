@@ -1,1 +1,1 @@
-from plm import *
+from plm import ParsimoniousLM
